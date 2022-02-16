@@ -2,6 +2,7 @@
 
 let myCanvas = document.getElementById("my-canvas");
 let ctx = myCanvas.getContext("2d");
+let evilEmoji = document.getElementById("evilEmoji");
 
 
 let keydownOutput = document.getElementById("keydown-output");
@@ -16,6 +17,10 @@ let playerYDir = 0;
 let playerSpeed = 5;
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
+
+
+const IMG_WIDTH = 40;
+const IMG_HEIGHT = 40;
 
 
 //ball position and movement 
@@ -48,17 +53,22 @@ function drawBall() {
     ctx.fill();
 }
 
+function drawImage() {
+    ctx.drawImage(evilEmoji, ballX, ballY, IMG_WIDTH, IMG_HEIGHT);
+}
+
+
 function moveBall() {
     ballY += ballYDir;
     ballX += ballXDir;
 }
 
 function checkBallCollision() {
-    if ((ballY - BALL_RADIUS > 470) || (ballY < 20 + BALL_RADIUS)) {
+    if ((ballY - BALL_RADIUS > 450) || (ballY < 20 + BALL_RADIUS)) {
         ballYDir = ballYDir * -1;
     }
 
-    if ((ballX > 470) || (ballX < 20)) {
+    if ((ballX > 450) || (ballX < 20)) {
         ballXDir = ballXDir * -1;
     }
 
@@ -77,9 +87,12 @@ function refreshPlayer() {
     ctx.clearRect(0, 0, 500, 500);
     movePlayer();
     drawPlayer();
+    /*
     drawBall();
+    */
     moveBall();
     checkBallCollision();
+    drawImage();
 }
 
 //When key is pressed
